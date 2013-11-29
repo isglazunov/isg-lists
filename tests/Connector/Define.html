@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <link rel="stylesheet" href="../../node_modules/mocha/mocha.css"/>
+        <script src="../../node_modules/mocha/mocha.js"></script>
+        <script>mocha.setup('bdd')</script>
+        
+        <script src="../../node_modules/should/should.js"></script>
+        
+        <script src="../../node_modules/requirejs/require.js"></script>
+        
+        <script>
+            requirejs.config({
+                paths: {
+                    'isg-lists': '../../isg-lists'
+                } 
+            });
+        </script>
+        <script>
+            require(['isg-lists'], function(lists) {
+                
+                describe('Lists', function() {
+                    describe('Connector', function() {
+                        it('Define', function() {
+                            lists.should.be.an.instanceof(isgLists);
+                        });
+                    });
+                });
+                
+                mocha.checkLeaks();
+                mocha.run();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="mocha"></div>
+    </body>
+</html>

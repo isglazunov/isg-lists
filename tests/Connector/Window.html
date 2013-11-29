@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <link rel="stylesheet" href="../../node_modules/mocha/mocha.css"/>
+        <script src="../../node_modules/mocha/mocha.js"></script>
+        <script>mocha.setup('bdd')</script>
+        
+        <script src="../../node_modules/should/should.js"></script>
+        
+        <script src="../../node_modules/lodash/lodash.js"></script>
+        
+        <script src="../../isg-lists.js"></script>
+        
+        <script>
+            describe('Lists', function() {
+                describe('Connector', function() {
+                    it('Window', function() {
+                        isgLists.should.have.type('function');
+                        var lists = new isgLists();
+                        lists.should.be.an.instanceof(isgLists);
+                    });
+                });
+            });
+        </script>
+        
+        <script>
+            onload = function(){
+                mocha.checkLeaks();
+                mocha.run();
+            };
+        </script>
+    </head>
+    <body>
+        <div id="mocha"></div>
+    </body>
+</html>
