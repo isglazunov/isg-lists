@@ -107,8 +107,14 @@ describe('Lists', function() {
     
     it('Superposition', function() {
         var s = new lists.Superposition;
-        var l = new lists.List;
-        s.in(l).should.be.an.instanceof(lists.Position);
+        var l0 = new lists.List;
+        var l1 = new lists.List;
+        
+        l0.append([s]);
+        l1.append([s]);
+        
+        l0._length.should.be.eql(1);
+        l1._length.should.be.eql(1);
     });
     
 });

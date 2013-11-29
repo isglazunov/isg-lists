@@ -7,7 +7,7 @@
 (function() {
     
     // Локальный указатель версии модуля Lists
-    var version = '0.1.0';
+    var version = '0.1.1';
     
     // Конструктор Lists
     // new Lists() Function
@@ -111,6 +111,7 @@
                 if (pos._next) this._first = pos._next;
                 else throw new Error('position is not complete');
             }
+            this._length--;
         };
         
         // Список двусвязных позиций
@@ -121,7 +122,7 @@
             
             // new .List() Function
             var List = function() {
-                this.__id = id++; // Идентификатор списка.
+                this._id = id++; // Идентификатор списка.
                 
                 // Длинна списка. Изменяется встроенными методами.
                 this._length = 0;
@@ -137,6 +138,8 @@
                 // .remove(superpositions.. Superposition) Function
                 return function(superpositions) {
                     for (var s in superpositions) {
+                        if (!superpositions[s] instanceof lists.Superposition) throw new Error('!superposition');
+                        
                         superpositions[s].in(this).remove();
                     }
                 };
@@ -171,6 +174,7 @@
                 return function(superpositions, force) {
                     var action = force? forcePrependTrue : forcePrependFalse
                     for (var s = superpositions.length-1; s > 0-1; s--) {
+                        if (!superpositions[s] instanceof lists.Superposition) throw new Error('!superposition');
                         action(this, superpositions[s].in(this));
                     }
                 };
@@ -205,6 +209,7 @@
                 return function(superpositions, force) {
                     var action = force? forceAppendTrue : forceAppendFalse
                     for (var s = 0; s < superpositions.length; s++) {
+                        if (!superpositions[s] instanceof lists.Superposition) throw new Error('!superposition');
                         action(this, superpositions[s].in(this));
                     }
                 };
@@ -228,6 +233,7 @@
             // (comparator(source Superposition, target Superposition) => Boolean Function, superposition Superposition) Function
             List.prototype.add = function(comparator, superpositions) {
                 for (var s in superpositions) {
+                    if (!superpositions[s] instanceof lists.Superposition) throw new Error('!superposition');
                     superpositions[s].add(comparator);
                 }
             };
@@ -308,6 +314,7 @@
                         
                     } else {
                         for (var s = 0; s < superpositions.length; s++) {
+                            if (!superpositions[s] instanceof lists.Superposition) throw new Error('!superposition');
                             action(this, this._list, superpositions[s].in(this._list));
                         }
                     }
@@ -341,6 +348,7 @@
                         
                     } else {
                         for (var s = superpositions.length-1; s > 0-1; s--) {
+                            if (!superpositions[s] instanceof lists.Superposition) throw new Error('!superposition');
                             action(this, this._list, superpositions[s].in(this._list));
                         }
                     }
@@ -429,6 +437,11 @@
 }) ();
 
 // Версии
+
+// 0.1.1
+// Добавлена проверка на тип аргументов в основных мутодах.
+// Исправлена ошибка указания идентификатора списка Superposition.in.
+// Исправлена ошибка уменьшения показателя list._length.
 
 // 0.1.0
 // Наследуется функционал https://github.com/isglazunov/blackstone/tree/0.1.0
